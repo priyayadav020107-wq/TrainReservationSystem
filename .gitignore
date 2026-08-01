@@ -1,0 +1,45 @@
+# ============================================
+# Eclipse Project Files (DO NOT push these)
+# ============================================
+.classpath
+.project
+.settings/
+.metadata/
+*.launch
+RemoteSystemsTempFiles/
+
+# ============================================
+# Build Output (compiled .class files)
+# ============================================
+build/
+bin/
+out/
+*.class
+
+# ============================================
+# WEB-INF lib jars (add manually on other machines)
+# ============================================
+src/main/webapp/WEB-INF/lib/
+WebContent/WEB-INF/lib/
+
+# ============================================
+# Tomcat / Server logs
+# ============================================
+*.log
+logs/
+wtpwebapps/
+
+# ============================================
+# OS Generated Files
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================
+# IDE Temp Files
+# ============================================
+*.swp
+*.tmp
+*.bak
+*~
