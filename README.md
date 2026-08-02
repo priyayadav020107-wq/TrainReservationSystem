@@ -110,11 +110,20 @@ ConcurrencyService (Service layer: locking, caching, thread pools)
 ```bash
    git clone https://github.com/priyayadav020107-wq/TrainReservationSystem.git
 ```
-
 2. **Set up the database**
    - Open MySQL Workbench (or CLI).
-   - Run the full schema script (tables, procedures, functions, triggers, events, seed data) from `/database/schema.sql`.
-   - Run any patch scripts in `/database/patches/` in order (these contain later fixes: seat-availability tracking, waitlist procedures, pagination procedures, and the active-seat uniqueness fix).
+   - Run the complete schema script from `/database/schema.sql` — this single file creates the database, all 12 tables, all stored procedures and functions, all triggers, the event, and seed data (sample admin, users, stations, and trains). Everything is already merged in, including the seat-reuse/active-seat-uniqueness fix — no separate patch files need to be run.
+   - Command line:
+```bash
+     mysql -u root -p < database/schema.sql
+```
+   - After importing, if you want the automatic daily journey-expiry event to actually run, enable the event scheduler (requires `SUPER` or `SYSTEM_VARIABLES_ADMIN` privilege):
+```sql
+     SET GLOBAL event_scheduler = ON;
+```
+     Without this, the `daily_expire_journeys` event exists but stays dormant — you can always trigger the same logic manually at any time by running `CALL expire_past_journeys();`.
+
+> **Note**: Running `schema.sql` against an existing `train_reservation_system` database will drop and recreate each table (all data will be lost), but will not delete the database itself if it already exists.
 
 3. **Configure the DB connection**
    - Open `src/db_config/GetConnection.java` and update the URL, username, and password to match your local MySQL instance.
